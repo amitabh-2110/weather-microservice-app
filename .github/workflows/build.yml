@@ -37,4 +37,8 @@ jobs:
     - run: |
         docker build -t demonagp.azurecr.io/weatherforecast:${{ github.sha }} -f WeatherForecast.Dockerfile .
         docker push demonagp.azurecr.io/weatherforecast:${{ github.sha }}
+
+    - run: |
+        docker build -t demonagp.azurecr.io/weatherforecast1:${{ github.sha }} -f WeatherForecast.Dockerfile .
+        docker push demonagp.azurecr.io/weatherforecast1:${{ github.sha }}
     
