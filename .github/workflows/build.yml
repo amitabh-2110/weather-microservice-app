@@ -16,11 +16,25 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 6.0.x
+
     - name: Restore dependencies
       run: dotnet restore
+
     - name: Build
       run: dotnet build --no-restore
+
+    - uses: azure/docker-login@v2
+      with:
+        login-server: demonagp.azurecr.io
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+
+    - run: |
+        docker build -t demonagp.azurecr.io/weatherforecast:${{ github.sha }} -f WeatherForecast.Dockerfile .
+        docker push demonagp.azurecr.io/weatherforecast:${{ github.sha }}
+    
