@@ -6,14 +6,16 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
+
 COPY ["WeatherForcastApp.Web/WeatherForcastApp.Web.csproj", "WeatherForcastApp.Web/"]
 RUN dotnet restore "WeatherForcastApp.Web/WeatherForcastApp.Web.csproj"
-COPY . "/src/WeatherForcastApp.Web"
+
+COPY "WeatherForcastApp.Web/" "/src/WeatherForcastApp.Web"
 WORKDIR "/src/WeatherForcastApp.Web"
 RUN dotnet build "WeatherForcastApp.Web.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "WeatherForcastApp.Web.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
