@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: webapp-deployment
+  namespace: backend-ns
   labels:
     app: webapp
 spec:
@@ -19,17 +20,29 @@ spec:
         image: demowebappregistry.azurecr.io/demowebappimage:v1
         ports: 
         - containerPort: 80
-        # env:
-        # - name: MSSQL_SERVICE_HOST
-        #   value: mssql-service # The name of your MSSQL ClusterIP service
-        # - name: MSSQL_SERVICE_PORT
-        #   value: 1433
+        env:
+        - name: MSSQL_SERVER
+          valueFrom:
+            configMapKeyRef:
+              name: mssql-config
+              key: mssql-server
+        - name: MSSQL_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: mssql-config
+              key: mssql-port
+        - name: MSSQL_PASS
+          valueFrom:
+            secretKeyRef:
+              name: mssql-secret-backend
+              key: mssql-pass
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: webapp-service
+  namespace: backend-ns
 spec:
   type: LoadBalancer
   selector:
