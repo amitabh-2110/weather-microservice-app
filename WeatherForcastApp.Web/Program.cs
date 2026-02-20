@@ -10,7 +10,7 @@ var dbPort = builder.Configuration["MSSQL_PORT"];
 // get from secret
 var dbPass = builder.Configuration["MSSQL_PASS"];
 
-var conn = $"Server={dbServer},{dbPort};Initial Catalog=testdbcontext;User ID=sa Password={dbPass};MultipleActiveResultSets=True;Integrated security=False;TrustServerCertificate=True;"
+var conn = $"Server={dbServer},{dbPort};Initial Catalog=testdbcontext;User ID=sa Password={dbPass};MultipleActiveResultSets=True;Integrated security=False;TrustServerCertificate=True;";
 
 Console.WriteLine($"connection string: {conn}");
 
