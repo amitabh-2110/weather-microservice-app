@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: webapp
-        image: demowebappregistry.azurecr.io/demowebappimage:v1
+        image: demonagp.azurecr.io/weatherforecast:021d4ff5d9f13b933ac73437ba619a4215fd059f
         ports: 
         - containerPort: 80
         env:

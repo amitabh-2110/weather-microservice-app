@@ -5,4 +5,4 @@ metadata:
   namespace: backend-ns
 data:
   mssql-server: mssql-service.database-ns
-  mssql-port: 1433
+  mssql-port: "1433"

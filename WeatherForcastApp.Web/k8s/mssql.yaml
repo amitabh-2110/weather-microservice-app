@@ -27,7 +27,7 @@ spec:
           valueFrom:
             secretKeyRef: 
               name: mssql-secret-database
-              key: SA_PASSWORD
+              key: mssql-pass
 
 ---
 apiVersion: v1
